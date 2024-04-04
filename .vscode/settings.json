@@ -1,0 +1,14 @@
+{
+    "Lua.diagnostics.globals": [
+        "number",
+        "distance",
+        "love",
+        "target",
+        "score",
+        "timer",
+        "gameFont",
+        "distanceBetween",
+        "sprites",
+        "gameState"
+    ]
+}
