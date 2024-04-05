@@ -1,6 +1,7 @@
 love = require("love")
 
 function love.load()
+    love.window.setTitle("Shooting Gallery")
     target = {
         x = 300,
         y = 300,
@@ -18,7 +19,13 @@ function love.load()
         target = love.graphics.newImage('sprites/target.png')
     }
 
+    sounds = {
+        music = love.audio.newSource('sounds/music.mp3', 'static'),
+        shot = love.audio.newSource('sounds/shot.ogg', 'static')
+    }
+    sounds.music:setLooping(true)
     love.mouse.setVisible(false)
+    love.audio.play(sounds.music)
 end
 
 function love.update(dt)
@@ -47,18 +54,20 @@ function love.draw()
     if gameState == 2 then
         love.graphics.draw(sprites.target, target.x- target.radius, target.y- target.radius)
     end
-
-
     love.graphics.draw(sprites.crosshairs, love.mouse.getX()- 20, love.mouse.getY() - 20)
  end
 
 function love.mousepressed(x, y, button, istouch, presses)
     if button == 1 and gameState == 2 then
+        love.audio.stop(sounds.shot)
+        love.audio.play(sounds.shot)
         local distance = distanceBetween(x, y, target.x, target.y)
         if distance <= target.radius then
             score = score + 1
             target.x = math.random(target.radius, love.graphics.getWidth() - target.radius)
             target.y = math.random(target.radius, love.graphics.getHeight() - target.radius)
+        else
+            score = score - 1
         end
     elseif button == 1 and gameState == 1 then
         gameState = 2

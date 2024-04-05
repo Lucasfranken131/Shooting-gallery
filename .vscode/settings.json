@@ -9,6 +9,7 @@
         "gameFont",
         "distanceBetween",
         "sprites",
-        "gameState"
+        "gameState",
+        "sounds"
     ]
 }
